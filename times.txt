@@ -8,14 +8,15 @@ initial
 
 after indexing
   index: 2.99s (232.77 times faster than initial)
+          99.57% decreased runtime
 
 after code improvements
   index: 1.37s (508 times faster than initial, 2.18 times faster than after indexing)
-
+          99.80% decreased runtime from initial
 
 final times
   migration: 0.0022s
-  seed: 1878.52044 seconds (I think my initial seeds took a break when I took a breakP)
+  seed: 1878.52044 seconds (I think my initial seeds took a break when I took a break)
 
 size of the db: 569356288 (0.5gb)
 size of the logs: 1492246748 (1.5gb)

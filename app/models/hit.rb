@@ -1,5 +1,5 @@
 class Hit < ActiveRecord::Base
-  belongs_to :subject, polymorphic: true
+  belongs_to :subject, polymorphic: true #, counter_cache: true
 
   validates :subject_id, presence: true
   validates :subject_type, presence: true
