@@ -1,0 +1,31 @@
+times:
+
+initial
+  seed: 1848.497933 seconds
+  index: 11.6 minutes 696s
+  migrations: 3.9774s
+
+
+after indexing
+  index: 2.99s (232.77 times faster than initial)
+
+after code improvements
+  index: 1.37s (508 times faster than initial, 2.18 times faster than after indexing)
+
+
+final times
+  migration: 0.0022s
+  seed: 1878.52044 seconds (I think my initial seeds took a break when I took a breakP)
+
+size of the db: 569356288 (0.5gb)
+size of the logs: 1492246748 (1.5gb)
+
+clear the logs: rake log:clear
+find the db size cd db, ls -l
+find the size of the logs, ls -l
+
+reducing the size of db
+  https://ariejan.net/2009/04/23/compacting-a-sqlite3-db-file/
+  sqlite3 <db file>
+    VACUUM;
+    .quit
