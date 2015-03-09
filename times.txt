@@ -13,6 +13,7 @@ after indexing
 after code improvements
   index: 1.37s (508 times faster than initial, 2.18 times faster than after indexing)
           99.80% decreased runtime from initial
+          54.18% decreased runtime from just indexing
 
 final times
   migration: 0.0022s
