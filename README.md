@@ -6,6 +6,7 @@
 - [Delayed Job][DJ]
 - [Daemons][DAE]
 - [Mailers example][MAIL]
+- [OSX Cron][CRON]
 
 #### [In the console][DJ]
 ```
@@ -61,7 +62,7 @@ end
 [AJ]: http://edgeguides.rubyonrails.org/active_job_basics.html
 [ARM]: http://edgeguides.rubyonrails.org/active_record_migrations.html
 [AS]: https://github.com/michaelbyrd/database-optimization/blob/master/app/models/assembly.rb
-[CRON]: http://www.unixgeeks.org/security/newbie/unix/cron-1.html
+[CRON]: http://www.maclife.com/article/columns/terminal_101_creating_cron_jobs
 [DAE]: https://github.com/thuehlinger/daemons
 [DJ]: https://github.com/collectiveidea/delayed_job
 [GEM]: https://github.com/michaelbyrd/database-optimization/blob/master/Gemfile
