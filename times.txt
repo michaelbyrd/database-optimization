@@ -32,6 +32,9 @@ reducing the size of db
     VACUUM;
     .quit
 
+bin/delayed_job --queues=default,mailers start
+bin/delayed_job --queues=default,mailers stop
+
 
 * 0 * * * /Users/byrd/tiy/projects/database_optimizations/bin/delayed_job --queue=nightly start
 * 4 * * * /Users/byrdtiy/projects/database_optimizations/bin/delayed_job --queue=nightly stop

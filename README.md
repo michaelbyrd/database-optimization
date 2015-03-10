@@ -1,56 +1,64 @@
 # Database Optimizations
 
-## Description
+#### Documentation
+- [Active Record Migrations](http://edgeguides.rubyonrails.org/active_record_migrations.html)
+- [Active Job](http://edgeguides.rubyonrails.org/active_job_basics.html)
+- [Delayed Job](https://github.com/collectiveidea/delayed_job)
+- [Daemons](https://github.com/thuehlinger/daemons)
 
-Given an existing application which generates a report from a large data set, improve the efficiency of the report using database optimization methods.
+#### In the console
+```
+bin/delayed_job --queues=default,mailers start
+bin/delayed_job --queues=default,mailers stop
+```
 
-## Objectives
+#### [Cron][1]
+```
+* 0 * * * /Users/byrd/tiy/projects/database_optimizations/bin/delayed_job --queue=nightly start
+* 4 * * * /Users/byrdtiy/projects/database_optimizations/bin/delayed_job --queue=nightly stop
+```
 
-After completing this assignment, you should...
+#### [Gemfile][2]
+```rb
+gem 'delayed_job'
+gem 'daemons'
+gem 'delayed_job_active_record'
+```
 
-* Understand the downsides of loops within loops in Rails.
-* Understand the benefits and appropriate use of indices on database tables.
-* Understand the downside of indices.
-* Be able to measure the runtime of various webapp functions.
-* Be able to query the database more efficiently.
-* Be able to implement database indices.
+#### [Migration][3]
+```rb
+class AddIndices < ActiveRecord::Migration
+  def change
+    add_index :assemblies, :name
+    add_index :sequences, :assembly_id
+    add_index :genes, :sequence_id
+    add_index :hits, :subject_id
+  end
+end
+```
 
-## Deliverables
+#### [Assembly model][4]
+```rb
+class Assembly < ActiveRecord::Base
+  has_many :sequences
+  has_many :genes, through: :sequences
+  has_many :hits, through: :genes
+end
+```
 
-* **A Repository.** You will be working from the existing application found in this repository, but you will make your own copy.
-* **A README.** The README should include data on all of the metrics requested below.
-
-## Normal Mode
-
-For this project, you will be starting with an application which runs very slowly.  This ineffiency is due partly to the sheer amount of data present, but mostly due to the structure of the code and the database.  Your task is to make it run in a reasonable amount of time.
-
-Once you pull down the application from Github, run `bundle install` and `rake db:migrate`, then follow the steps below.
-
-* Run `rake db:seed`, but time it.  Record the amount of time it takes for the seeds to run.
-* Turn on your server and open your browser.
-* Open Chrome's timeline in developer tools, then go to `localhost:3000`.
-* Determine how long it takes the index page to load.  Record that time.
-* Add appropriate indices to the data structure (via migrations).
-* Record how long it takes to run the migrations that add indices.
-* Use Chrome's developer tools to determine how long it takes the index page to load.  Record that time.
-* Calculate your percent improvement in runtime.
-* Examine the code that is run when the root path loads.  Modify the commands which access the database to make them more efficient.
-* Calculate your percent improvement in runtime.
-* Once you have optimized your code as much as you think you can, drop the database, run `rake db:migrate`, and then time how long it takes to run `rake db:seed`.  Was there an improvement or a worsening of runtime?  By what percent and why?
-* Which is faster: (a) running `rake db:seed` without indices and then running a migration to add indices, or (b) adding indices during your initial `rake db:migrate`, then running `rake db:seed`?
-
-You've done a good job of analyzing runtime, but now take a look at storage space:
-
-* Record the size of your database (in bytes).
-* Record the size of your development log.
-* Give at least one method (feel free to Google) for reducing the size of one of these, yet keeping your data intact.
-* Do you think that this is smaller, about right, or larger than the size of databases you'll be working with in your career?
-
-## Hard Mode
-
-This data structure has a number of tables connected with a series of one-to-many relationships between them.  A more advanced way to improve efficiency would be to cache the id of the upper-most (ancestor) table's id in a field in the lower-most (descendant) table.  To accomplish this, do the following:
-
-* Write a migration to add this cached foreign key.
-* Write callbacks to maintain this foreign key appropriately.  Hint: you will need more than one.
-* Modify the report to use this new cached field instead of the actual id stored in the ancestor table.
-* Measure the improvement in runtime.
+#### [Report Mailer][5]
+```rb
+class ReportMailer < ApplicationMailer
+  def report(address, name = "a1")
+    @address = address
+    @assembly = Assembly.find_by_name(name)
+    @hits = @assembly.hits.order("percent_similarity DESC")
+    mail(to: @address, subject: "Heres that DNA you ordered")
+  end
+end
+```
+[1]: http://www.unixgeeks.org/security/newbie/unix/cron-1.html
+[2]: https://github.com/michaelbyrd/database-optimization/blob/master/Gemfile
+[3]: https://github.com/michaelbyrd/database-optimization/blob/master/db/migrate/20150309181117_add_indices.rb
+[4]: https://github.com/michaelbyrd/database-optimization/blob/master/app/models/assembly.rb
+[5]: https://github.com/michaelbyrd/database-optimization/blob/master/app/mailers/report_mailer.rb
