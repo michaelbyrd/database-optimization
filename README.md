@@ -1,12 +1,13 @@
 # Database Optimizations
 
 #### Documentation
-- [Active Record Migrations](http://edgeguides.rubyonrails.org/active_record_migrations.html)
-- [Active Job](http://edgeguides.rubyonrails.org/active_job_basics.html)
-- [Delayed Job](https://github.com/collectiveidea/delayed_job)
-- [Daemons](https://github.com/thuehlinger/daemons)
+- [Active Record Migrations][ARM]
+- [Active Job][AJ]
+- [Delayed Job][DJ]
+- [Daemons][DAE]
+- [Mailers example][MAIL]
 
-#### [In the console](https://github.com/collectiveidea/delayed_job)
+#### [In the console][DJ]
 ```
 bin/delayed_job --queues=default,mailers start
 bin/delayed_job --queues=default,mailers stop
@@ -62,3 +63,10 @@ end
 [3]: https://github.com/michaelbyrd/database-optimization/blob/master/db/migrate/20150309181117_add_indices.rb
 [4]: https://github.com/michaelbyrd/database-optimization/blob/master/app/models/assembly.rb
 [5]: https://github.com/michaelbyrd/database-optimization/blob/master/app/mailers/report_mailer.rb
+
+
+[ARM]: http://edgeguides.rubyonrails.org/active_record_migrations.html
+[AJ]: http://edgeguides.rubyonrails.org/active_job_basics.html
+[DJ]: https://github.com/collectiveidea/delayed_job
+[DAE]: https://github.com/thuehlinger/daemons
+[MAIL]: https://github.com/michaelbyrd/mailer_example
