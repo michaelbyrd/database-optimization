@@ -13,20 +13,20 @@ bin/delayed_job --queues=default,mailers start
 bin/delayed_job --queues=default,mailers stop
 ```
 
-#### [Cron][1]
+#### [Cron][CRON]
 ```
 * 0 * * * /Users/byrd/tiy/projects/database_optimizations/bin/delayed_job --queue=nightly start
 * 4 * * * /Users/byrdtiy/projects/database_optimizations/bin/delayed_job --queue=nightly stop
 ```
 
-#### [Gemfile][2]
+#### [Gemfile][GEM]
 ```rb
 gem 'delayed_job'
 gem 'daemons'
 gem 'delayed_job_active_record'
 ```
 
-#### [Migration][3]
+#### [Migration][MIGR]
 ```rb
 class AddIndices < ActiveRecord::Migration
   def change
@@ -38,7 +38,7 @@ class AddIndices < ActiveRecord::Migration
 end
 ```
 
-#### [Assembly model][4]
+#### [Assembly model][AS]
 ```rb
 class Assembly < ActiveRecord::Base
   has_many :sequences
@@ -47,7 +47,7 @@ class Assembly < ActiveRecord::Base
 end
 ```
 
-#### [Report Mailer][5]
+#### [Report Mailer][RM]
 ```rb
 class ReportMailer < ApplicationMailer
   def report(address, name = "a1")
@@ -58,15 +58,13 @@ class ReportMailer < ApplicationMailer
   end
 end
 ```
-[1]: http://www.unixgeeks.org/security/newbie/unix/cron-1.html
-[2]: https://github.com/michaelbyrd/database-optimization/blob/master/Gemfile
-[3]: https://github.com/michaelbyrd/database-optimization/blob/master/db/migrate/20150309181117_add_indices.rb
-[4]: https://github.com/michaelbyrd/database-optimization/blob/master/app/models/assembly.rb
-[5]: https://github.com/michaelbyrd/database-optimization/blob/master/app/mailers/report_mailer.rb
-
-
-[ARM]: http://edgeguides.rubyonrails.org/active_record_migrations.html
 [AJ]: http://edgeguides.rubyonrails.org/active_job_basics.html
-[DJ]: https://github.com/collectiveidea/delayed_job
+[ARM]: http://edgeguides.rubyonrails.org/active_record_migrations.html
+[AS]: https://github.com/michaelbyrd/database-optimization/blob/master/app/models/assembly.rb
+[CRON]: http://www.unixgeeks.org/security/newbie/unix/cron-1.html
 [DAE]: https://github.com/thuehlinger/daemons
+[DJ]: https://github.com/collectiveidea/delayed_job
+[GEM]: https://github.com/michaelbyrd/database-optimization/blob/master/Gemfile
 [MAIL]: https://github.com/michaelbyrd/mailer_example
+[MIGR]: https://github.com/michaelbyrd/database-optimization/blob/master/db/migrate/20150309181117_add_indices.rb
+[RM]: https://github.com/michaelbyrd/database-optimization/blob/master/app/mailers/report_mailer.rb
