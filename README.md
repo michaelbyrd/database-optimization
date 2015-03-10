@@ -8,18 +8,6 @@
 - [Mailers example][MAIL]
 - [OSX Cron][CRON]
 
-#### [In the console][DJ]
-```
-bin/delayed_job --queues=default,mailers start
-bin/delayed_job --queues=default,mailers stop
-```
-
-#### [Cron][CRON]
-```
-* 0 * * * /Users/byrd/tiy/projects/database_optimizations/bin/delayed_job --queue=nightly start
-* 4 * * * /Users/byrdtiy/projects/database_optimizations/bin/delayed_job --queue=nightly stop
-```
-
 #### [Gemfile][GEM]
 ```rb
 gem 'delayed_job'
@@ -59,6 +47,19 @@ class ReportMailer < ApplicationMailer
   end
 end
 ```
+
+#### [In the console][DJ]
+```
+bin/delayed_job --queues=default,mailers start
+bin/delayed_job --queues=default,mailers stop
+```
+
+#### [Cron][CRON]
+```
+0 0 * * * /Users/byrd/tiy/projects/database_optimizations/bin/delayed_job --queue=nightly start
+0 4 * * * /Users/byrdtiy/projects/database_optimizations/bin/delayed_job --queue=nightly stop
+```
+
 [AJ]: http://edgeguides.rubyonrails.org/active_job_basics.html
 [ARM]: http://edgeguides.rubyonrails.org/active_record_migrations.html
 [AS]: https://github.com/michaelbyrd/database-optimization/blob/master/app/models/assembly.rb
