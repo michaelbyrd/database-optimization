@@ -2,5 +2,6 @@
 
 <%= form_tag reports_report_email_path do %>
   <%= email_field_tag "email" %>
+  <%= collection_select :assembly, :name, @assemblies, :name, :name, prompt: true %>
   <%= submit_tag %>
 <% end %>

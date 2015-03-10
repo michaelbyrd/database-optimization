@@ -1,11 +1,11 @@
 class ReportsController < ApplicationController
   def all_data
-
+    @assemblies = Assembly.all
   end
 
   def report_email
-    ReportEmailJob.perform_later(params[:email])
-    # ReportMailer.report(params[:email]).deliver_later
+    puts params
+    ReportEmailJob.perform_later(params[:email], params[:assembly][:name])
     redirect_to root_path
   end
 end
