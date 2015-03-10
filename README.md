@@ -6,7 +6,7 @@
 - [Delayed Job](https://github.com/collectiveidea/delayed_job)
 - [Daemons](https://github.com/thuehlinger/daemons)
 
-#### In the console
+#### [In the console](https://github.com/collectiveidea/delayed_job)
 ```
 bin/delayed_job --queues=default,mailers start
 bin/delayed_job --queues=default,mailers stop
